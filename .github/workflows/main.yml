@@ -12,6 +12,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
       - name: Build backend Docker image
         run: docker build -t backend ./backend
 
@@ -21,7 +26,7 @@ jobs:
       - name: Run containers
         run: |
           docker-compose up -d
-          sleep 10
+          sleep 15
 
       - name: Test backend API
         run: curl http://localhost:5000/api/data
